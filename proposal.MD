@@ -12,7 +12,7 @@
 
   [Spring](https://spring.io/projects/spring-framework) framework;
 
-  [Hibrenate](https://hibernate.org/) for data presistence;
+  [Hibrenate](https://hibernate.org/) for ORM;
 
 - Deployment:
 
