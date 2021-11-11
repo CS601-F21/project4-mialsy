@@ -4,15 +4,15 @@
 
 - Front-End:
 
-  [React](!https://reactjs.org/), using [antd](!https://ant.design/) or [material UI](!https://material-ui.com/) components;
+  [React](https://reactjs.org/), using [antd](https://ant.design/) or [material UI](https://material-ui.com/) components;
 
-  use [axios](!https://github.com/axios/axios) to call backend-API
+  use [axios](https://github.com/axios/axios) to call backend-API
 
 - Back-End:
 
-  [Spring](!https://spring.io/projects/spring-framework) framework;
+  [Spring](https://spring.io/projects/spring-framework) framework;
 
-  [Hibrenate](!https://hibernate.org/) for data presistence;
+  [Hibrenate](https://hibernate.org/) for data presistence;
 
 - Deployment:
 
