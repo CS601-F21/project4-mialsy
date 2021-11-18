@@ -8,7 +8,7 @@
         <property name="connection.username">user024</property>
         <property name="connection.password">user024</property>
         <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://127.0.0.1:3308/db</property>
+        <property name="connection.url">jdbc:mysql://127.0.0.1:3308/user024</property>
 
         <!-- c3p0  -->
         <property name="hibernate.c3p0.acquire_increment">10</property>
@@ -23,6 +23,5 @@
         <property name="show_sql">true</property>
         <property name="format_sql">true</property>
         <property name="hibernate.hbm2ddl.auto"/>
-
     </session-factory>
 </hibernate-configuration>
