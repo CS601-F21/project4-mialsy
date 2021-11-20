@@ -82,3 +82,4 @@ fabric.properties
 /target
 /src/main/java/META-INF/
 *.log
+src/main/resources/application.properties
