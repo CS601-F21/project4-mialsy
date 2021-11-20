@@ -19,10 +19,7 @@ import java.util.Map;
 @RestController
 public class Project4Application extends WebSecurityConfigurerAdapter {
 
-	@GetMapping("/user")
-	public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal) {
-		return Collections.singletonMap("name", principal.getAttribute("name"));
-	}
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(Project4Application.class, args);

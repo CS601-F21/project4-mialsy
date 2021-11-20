@@ -1,24 +1,33 @@
 package mialsy.project4.models;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "user")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
     @Column(name = "name")
     private String name;
 
-    @Column(name = "twitter_id", unique = true, nullable = false)
-    private Long twitterId;
+    @Column(name = "github_username", unique = true, nullable = false)
+    private String githubUsername;
+
+    public User() {
+    }
+
+    public User(Long id, String name, String githubUsername) {
+        this.id = id;
+        this.name = name;
+        this.githubUsername = githubUsername;
+    }
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "transaction_id")
+    @JoinColumn(name = "id")
     private Set<Transaction> transactions;
 
     public Long getId() {
@@ -29,8 +38,8 @@ public class User {
         return name;
     }
 
-    public Long getTwitterId() {
-        return twitterId;
+    public String getGithubUsername() {
+        return githubUsername;
     }
 
     public Set<Transaction> getTransactions() {
@@ -45,8 +54,8 @@ public class User {
         this.name = name;
     }
 
-    public void setTwitterId(Long twitterId) {
-        this.twitterId = twitterId;
+    public void setGithubUsername(String githubUsername) {
+        this.githubUsername = githubUsername;
     }
 
     public void setTransactions(Set<Transaction> transactions) {
