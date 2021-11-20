@@ -1,4 +1,4 @@
-package mialsy.project4.model;
+package mialsy.project4.models;
 
 import javax.persistence.*;
 
@@ -10,7 +10,7 @@ public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
 
     @Column(name = "name")
     private String name;
@@ -21,7 +21,7 @@ public class Event {
     @Column(name = "price")
     private Double price;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -37,7 +37,7 @@ public class Event {
         return price;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

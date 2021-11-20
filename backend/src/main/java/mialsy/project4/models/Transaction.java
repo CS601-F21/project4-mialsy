@@ -1,4 +1,4 @@
-package mialsy.project4.model;
+package mialsy.project4.models;
 
 import javax.persistence.*;
 
@@ -10,17 +10,17 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
-    private Integer id;
+    private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "userId", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "eventId", nullable = false)
+    @JoinColumn(name = "event_id", nullable = false)
     private Event event;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -32,7 +32,7 @@ public class Transaction {
         return event;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
