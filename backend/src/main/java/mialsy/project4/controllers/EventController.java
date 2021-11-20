@@ -13,17 +13,17 @@ public class EventController {
     }
 
     @GetMapping("/events")
-    Iterable<Event> events(){
+    Iterable<Event> getEvents(){
        return repository.findAll();
     }
 
     @PostMapping(value = "/events")
-    Event newEvent(@RequestBody Event newEvent) {
+    Event createEvent(@RequestBody Event newEvent) {
         return repository.save(newEvent);
     }
 
     @GetMapping("/events/id={id}")
-    Event one(@PathVariable Long id) {
+    Event getEventById(@PathVariable Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("id not valid" + id));
     }

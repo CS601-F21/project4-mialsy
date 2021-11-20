@@ -18,8 +18,8 @@ public class Event {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "price")
-    private Double price;
+    @Column(name = "count")
+    private Integer count;
 
     public Long getId() {
         return id;
@@ -33,8 +33,8 @@ public class Event {
         return description;
     }
 
-    public Double getPrice() {
-        return price;
+    public Integer getCount() {
+        return count;
     }
 
     public void setId(Long id) {
@@ -49,7 +49,7 @@ public class Event {
         this.description = description;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setCount(Integer count) {
+        this.count = count;
     }
 }
