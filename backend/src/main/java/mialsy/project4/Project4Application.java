@@ -1,15 +1,14 @@
 package mialsy.project4;
 
-import mialsy.project4.models.Event;
-import mialsy.project4.models.Transaction;
-import mialsy.project4.models.User;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.security.web.authentication.HttpStatusEntryPoint;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,7 +17,7 @@ import java.util.Map;
 
 @SpringBootApplication
 @RestController
-public class Project4Application {
+public class Project4Application extends WebSecurityConfigurerAdapter {
 
 	@GetMapping("/user")
 	public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal) {
@@ -27,39 +26,27 @@ public class Project4Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Project4Application.class, args);
-//
-//		// Hibernate
-//		// Create config
-//		Configuration configuration = new Configuration()
-//				.addAnnotatedClass(User.class)
-//				.addAnnotatedClass(Event.class)
-//				.addAnnotatedClass(Transaction.class)
-//				.configure();
-//		System.out.println(configuration);
-//
-//		// Get session
-//		SessionFactory sessionFactory = configuration.buildSessionFactory();
-//		Session session = sessionFactory.openSession();
-//
-//		User user = new User();
-//		user.setName("test user");
-//		user.setTwitterId(12121l);
-//
-//		Event event = new Event();
-//		event.setName("event test");
-//		event.setDescription("desc");
-//		event.setPrice(30.2);
-//
-//		Transaction transaction = new Transaction();
-//		transaction.setEvent(event);
-//		transaction.setUser(user);
-//
-//		session.save(user);
-//		session.save(event);
-//		session.save(transaction);
-//
-//		session.beginTransaction().commit();
-//		session.close();
+	}
+
+	// reference: "Spring Boot And Oauth2". 2021. Spring.Io. https://spring.io/guides/tutorials/spring-boot-oauth2/.
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.authorizeRequests(a -> a
+				// public pages
+				.antMatchers("/", "/error", "/webjars/**").permitAll()
+				.anyRequest().authenticated())
+				.exceptionHandling(e -> e
+						.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
+				)
+				// csrf token
+				.csrf(c -> c
+						.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+				)
+				// logout endpoint
+				.logout(l -> l
+						.logoutSuccessUrl("/").permitAll()
+				)
+				.oauth2Login();
 	}
 
 }
