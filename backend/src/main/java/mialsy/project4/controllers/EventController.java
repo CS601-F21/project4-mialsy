@@ -22,8 +22,8 @@ public class EventController {
         return repository.save(newEvent);
     }
 
-    @GetMapping("/events/id={id}")
-    Event getEventById(@PathVariable Long id) {
+    @GetMapping("/event")
+    Event getEventById(@RequestParam(name = "id") Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("id not valid" + id));
     }

@@ -2,8 +2,7 @@ package mialsy.project4.controllers;
 
 import mialsy.project4.database.TransactionRepository;
 import mialsy.project4.models.Transaction;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class TransactionController {
@@ -15,7 +14,14 @@ public class TransactionController {
 
     @GetMapping("/transactions")
     Iterable<Transaction> getTransactions(){
+        // TODO: filter on userid, need DAO
         return repository.findAll();
+    }
+
+    @PostMapping("/transactions")
+    Transaction createTransaction(@RequestBody Transaction transaction) {
+        repository.save(transaction);
+        return transaction;
     }
 
 }
