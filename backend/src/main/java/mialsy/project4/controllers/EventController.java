@@ -2,6 +2,7 @@ package mialsy.project4.controllers;
 
 import mialsy.project4.database.EventRepository;
 import mialsy.project4.models.Event;
+import mialsy.project4.utils.ErrorUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +24,6 @@ public class EventController {
     @GetMapping("/event")
     Event getEventById(@RequestParam(name = "id") Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("id not valid" + id));
+                .orElseThrow(() -> ErrorUtil.getObjectNotFoundException(Event.class.getName(), id));
     }
 }
