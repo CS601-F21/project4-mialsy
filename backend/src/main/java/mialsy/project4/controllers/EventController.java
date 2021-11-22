@@ -2,15 +2,13 @@ package mialsy.project4.controllers;
 
 import mialsy.project4.database.EventRepository;
 import mialsy.project4.models.Event;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class EventController {
-    private final EventRepository repository;
-
-    public EventController(EventRepository repository) {
-        this.repository = repository;
-    }
+    @Autowired
+    private EventRepository repository;
 
     @GetMapping("/events")
     Iterable<Event> getEvents(){

@@ -52,4 +52,8 @@ public class Event {
     public void setCount(Integer count) {
         this.count = count;
     }
+
+    public void decrementCount() {
+        this.count--;
+    }
 }

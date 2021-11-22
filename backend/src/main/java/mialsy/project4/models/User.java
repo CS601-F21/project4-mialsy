@@ -17,18 +17,13 @@ public class User {
     @Column(name = "github_username", unique = true, nullable = false)
     private String githubUsername;
 
-    public User() {
-    }
-
-    public User(Long id, String name, String githubUsername) {
-        this.id = id;
-        this.name = name;
-        this.githubUsername = githubUsername;
-    }
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id")
-    private Set<Transaction> transactions;
+    @JoinColumn(name = "user_id")
+    private Set<Transaction> transactions = new HashSet<>();
+
+    public User() {
+    }
 
     public Long getId() {
         return id;
@@ -61,4 +56,13 @@ public class User {
     public void setTransactions(Set<Transaction> transactions) {
         this.transactions = transactions;
     }
+
+    public void addTransaction(Transaction transaction) {
+        transactions.add(transaction);
+    }
+
+    public void removeTransaction(Transaction transaction) {
+        transactions.remove(transaction);
+    }
+
 }
