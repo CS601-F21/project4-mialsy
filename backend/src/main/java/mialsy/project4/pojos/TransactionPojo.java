@@ -1,10 +1,5 @@
 package mialsy.project4.pojos;
 
-import mialsy.project4.models.Event;
-import mialsy.project4.models.User;
-
-import javax.persistence.*;
-
 public class TransactionPojo {
 
     private Long id;

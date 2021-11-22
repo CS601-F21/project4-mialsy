@@ -10,8 +10,12 @@ import java.util.Set;
 @Table(name = "user")
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
     private Long id;
+
+    @Column(name = "github_id", unique = true, nullable = false)
+    private Long githubId;
 
     @Column(name = "name")
     private String name;
@@ -27,8 +31,8 @@ public class User {
     public User() {
     }
 
-    public Long getId() {
-        return id;
+    public Long getGithubId() {
+        return githubId;
     }
 
     public String getName() {
@@ -43,8 +47,8 @@ public class User {
         return transactions;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setGithubId(Long githubId) {
+        this.githubId = githubId;
     }
 
     public void setName(String name) {
@@ -60,6 +64,6 @@ public class User {
     }
 
     public UserPojo toPojo() {
-        return new UserPojo(id, name, githubUsername);
+        return new UserPojo(id, githubId, name, githubUsername);
     }
 }

@@ -8,6 +8,6 @@ public class AuthUtil {
     public static User getLoginUser(UserRepository userRepository, OAuth2User principal) {
         Integer intId = principal.getAttribute("id");
         Long id = Long.valueOf(intId);
-        return userRepository.findById(id).orElse(null);
+        return userRepository.findByGithubId(id).orElse(null);
     }
 }

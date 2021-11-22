@@ -1,17 +1,18 @@
 package mialsy.project4.pojos;
 
-import javax.persistence.Column;
-
 public class UserPojo {
 
     private Long id;
+
+    private Long githubId;
 
     private String name;
 
     private String githubUsername;
 
-    public UserPojo(Long id, String name, String githubUsername) {
+    public UserPojo(Long id, Long githubId, String name, String githubUsername) {
         this.id = id;
+        this.githubId = githubId;
         this.name = name;
         this.githubUsername = githubUsername;
     }
@@ -26,5 +27,9 @@ public class UserPojo {
 
     public String getGithubUsername() {
         return githubUsername;
+    }
+
+    public Long getGithubId() {
+        return githubId;
     }
 }

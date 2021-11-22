@@ -26,13 +26,13 @@ public class UserController {
     @GetMapping("/profile")
     UserPojo getProfile(@AuthenticationPrincipal OAuth2User principal) {
         Integer intId = principal.getAttribute("id");
-        Long id = Long.valueOf(intId);
+        Long githubId = Long.valueOf(intId);
         String username = principal.getAttribute("login");
         String name = principal.getAttribute("name");
 
         User user = AuthUtil.getLoginUser(repository, principal);
         if (user == null) {
-            return upsertUser(id, username, name);
+            return upsertUser(githubId, username, name);
         } else {
             return user.toPojo();
         }
@@ -42,13 +42,14 @@ public class UserController {
     UserPojo updateUserName(@AuthenticationPrincipal OAuth2User principal,
                         @RequestParam(name = "name") String name) {
         Integer intId = principal.getAttribute("id");
-        Long id = Long.valueOf(intId);
+        Long githubId = Long.valueOf(intId);
         String username = principal.getAttribute("login");
-        return upsertUser(id, username, name);
+        return upsertUser(githubId, username, name);
     }
 
-    private UserPojo upsertUser(Long id, String githubUsername, String name) {
-        User user = repository.findById(id).orElse(new User());
+    private UserPojo upsertUser(Long githubId, String githubUsername, String name) {
+        User user = repository.findByGithubId(githubId).orElse(new User());
+        user.setGithubId(githubId);
         user.setGithubUsername(githubUsername);
         user.setName(name);
         repository.save(user);
