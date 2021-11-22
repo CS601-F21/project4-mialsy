@@ -1,5 +1,7 @@
 package mialsy.project4.models;
 
+import mialsy.project4.pojos.TransactionPojo;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -56,5 +58,9 @@ public class Transaction {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public TransactionPojo toPojo() {
+        return new TransactionPojo(id, user.getId(), event.getId());
     }
 }

@@ -1,5 +1,7 @@
 package mialsy.project4.models;
 
+import mialsy.project4.pojos.UserPojo;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -57,12 +59,7 @@ public class User {
         this.transactions = transactions;
     }
 
-    public void addTransaction(Transaction transaction) {
-        transactions.add(transaction);
+    public UserPojo toPojo() {
+        return new UserPojo(id, name, githubUsername);
     }
-
-    public void removeTransaction(Transaction transaction) {
-        transactions.remove(transaction);
-    }
-
 }

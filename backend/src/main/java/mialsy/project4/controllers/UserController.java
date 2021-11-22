@@ -2,6 +2,7 @@ package mialsy.project4.controllers;
 
 import mialsy.project4.database.UserRepository;
 import mialsy.project4.models.User;
+import mialsy.project4.pojos.UserPojo;
 import mialsy.project4.utils.AuthUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -23,7 +24,7 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    User getProfile(@AuthenticationPrincipal OAuth2User principal) {
+    UserPojo getProfile(@AuthenticationPrincipal OAuth2User principal) {
         Integer intId = principal.getAttribute("id");
         Long id = Long.valueOf(intId);
         String username = principal.getAttribute("login");
@@ -31,13 +32,14 @@ public class UserController {
 
         User user = AuthUtil.getLoginUser(repository, principal);
         if (user == null) {
-            user = upsertUser(id, username, name);
+            return upsertUser(id, username, name);
+        } else {
+            return user.toPojo();
         }
-        return user;
     }
 
     @RequestMapping(path = "/profile", method = RequestMethod.PUT)
-    User updateUserName(@AuthenticationPrincipal OAuth2User principal,
+    UserPojo updateUserName(@AuthenticationPrincipal OAuth2User principal,
                         @RequestParam(name = "name") String name) {
         Integer intId = principal.getAttribute("id");
         Long id = Long.valueOf(intId);
@@ -45,13 +47,12 @@ public class UserController {
         return upsertUser(id, username, name);
     }
 
-    private User upsertUser(Long id, String githubUsername, String name) {
-        User user = new User();
-        user.setId(id);
+    private UserPojo upsertUser(Long id, String githubUsername, String name) {
+        User user = repository.findById(id).orElse(new User());
         user.setGithubUsername(githubUsername);
         user.setName(name);
         repository.save(user);
-        return user;
+        return user.toPojo();
     }
 
 }
