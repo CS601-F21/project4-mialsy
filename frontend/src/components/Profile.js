@@ -7,7 +7,7 @@ const { Paragraph } = Typography;
 const Profile = () => {
     const [githubUsername] = useState("default user");
     const [name, setName] = useState('name');
-    const [editable, setEditable] = useState(false);
+    const [editable, setEditable] = useState(true);
     const toggleEditable = () => {
         setEditable(!editable);
     }
