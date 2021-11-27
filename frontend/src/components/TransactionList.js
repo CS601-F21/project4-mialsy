@@ -13,12 +13,16 @@ const data = [
 const TransactionList = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const [itemSelected, setItemSelected] = useState(null);
+    const [toUser, setToUser] = useState('');
 
     const handleCancel = () => {
+        console.log(toUser);
         setModalOpen(false);
     };
 
     const handleOk = () => {
+        console.log(toUser);
+        setToUser('');
         setModalOpen(false);
     }
 
@@ -42,7 +46,7 @@ const TransactionList = () => {
             />
             <Modal 
                 visible={modalOpen}
-                title={itemSelected}
+                title={"Who do you want to transfer to?"}
                 onOk={handleOk}
                 onCancel={handleCancel}
                 footer={[
@@ -54,7 +58,7 @@ const TransactionList = () => {
                     </Button>
                 ]}
                 >
-                <TransferModalContent item={itemSelected}/>
+                <TransferModalContent item={itemSelected} user={toUser} setToUser={setToUser}/>
             </Modal>
         </>
     );
