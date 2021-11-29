@@ -1,10 +1,13 @@
 import { Card, Avatar, Input, Typography, Tooltip } from 'antd';
 import { UserOutlined, EditOutlined, SaveOutlined, CloseSquareOutlined } from '@ant-design/icons';
 import React, {useState} from 'react';
+import { isAuth } from '../utils/AuthUtil';
+import { Navigate, useLocation } from 'react-router';
 
 const { Paragraph } = Typography;
 
 const Profile = () => {
+    const location = useLocation();
     const [githubUsername] = useState("default user");
     const [name, setName] = useState('name');
     const [editable, setEditable] = useState(true);
@@ -35,6 +38,9 @@ const Profile = () => {
             <CloseSquareOutlined key="cancel" onClick={handleCancel}/> 
         </Tooltip>];
 
+    if (!isAuth()) {
+        return <Navigate to="/login" state={{ from: location }} />
+    }
     return (
         <Card title="Profile" 
             actions={editable ? editActions : saveAndCancelActions}

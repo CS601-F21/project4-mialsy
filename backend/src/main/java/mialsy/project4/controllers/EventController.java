@@ -11,6 +11,7 @@ public class EventController {
     @Autowired
     private EventRepository repository;
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/events")
     Iterable<Event> getEvents(){
        return repository.findAll();

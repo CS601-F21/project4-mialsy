@@ -7,6 +7,8 @@ import Profile from './components/Profile';
 import TransactionList from './components/TransactionList';
 import { Layout } from 'antd';
 import SideMenu from './components/common/SideMenu';
+import Login from './components/Login';
+import { Redirect } from './components/Redirect';
 
 const { Content, Footer, Sider } = Layout;
 
@@ -29,6 +31,8 @@ function App() {
                 <Route path = "/event/:id" element={<EventDetail />} />
                 <Route path = "/transactions" element={<TransactionList />} />
                 <Route path = "/" element={<Home />} />
+                <Route path = "/login" element={<Login />} />
+                <Route path = "/oauth2/authorization/google" element={<Redirect />} />
               </Routes>
               </div>
             </Content>
