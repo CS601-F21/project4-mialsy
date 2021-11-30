@@ -1,5 +1,5 @@
 import { List } from 'antd';
-import react, {useEffect, useState} from 'react'; 
+import react, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { BASE_URL } from '../constants/Constant';
@@ -12,7 +12,7 @@ const EventList = () => {
     }
 
     useEffect(() => {
-            axios(opt)
+        axios(opt)
             .then(res => {
                 if (res.status === 200) {
                     setEvents(res.data);
@@ -21,11 +21,10 @@ const EventList = () => {
             .catch(err => {
                 console.log(err);
             });
-        }
-    , []);
+    }, []);
 
     return (
-        <List 
+        <List
             dataSource={events}
             loading={events.length === 0}
             renderItem={(item) => (
@@ -34,7 +33,7 @@ const EventList = () => {
                 >
                     <List.Item.Meta
                         title={<p>{item.name}</p>}
-                        description={item.description}/>
+                        description={item.description} />
                 </List.Item>
             )}
         />

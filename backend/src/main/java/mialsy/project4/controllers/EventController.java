@@ -17,11 +17,13 @@ public class EventController {
        return repository.findAll();
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(value = "/events")
     Event createEvent(@RequestBody Event newEvent) {
         return repository.save(newEvent);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/event")
     Event getEventById(@RequestParam(name = "id") Long id) {
         return repository.findById(id)
