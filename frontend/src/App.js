@@ -16,15 +16,22 @@ function App() {
   return (
     <BrowserRouter>
       <div id = "container">
-        <Layout hasSider={true} style={{height: "100vh"}}>
+        <Layout hasSider={true} >
           <Sider
             breakpoint="lg"
-            collapsedWidth="0">
+            collapsedWidth="0"
+            style={{
+              overflow: 'auto',
+              height: '100vh',
+              position: 'fixed',
+              left: 0,
+            }}            
+            >
               <SideMenu />
           </Sider>
-          <Layout>
+          <Layout style={{ marginLeft: 200 }}>
             <Content style={{ margin: '24px 16px 0' }}>
-              <div className="site-layout-background" style={{ padding: 28}}>
+              <div className="site-layout-background" style={{ padding: 28, minHeight: "100vh"}}>
               <Routes>
                 <Route path = "/profile" element={<Profile />} />
                 <Route path = "/events" element={<EventList />} />
