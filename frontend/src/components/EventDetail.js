@@ -21,15 +21,14 @@ const getEventDescription = (e, setReload) => {
 
 const EventDetail = () => {
     const params = useParams();
-
     const [event, setEvent] = useState(Object);
-
     const [reload, setReload] = useState(false);
     
     const fetchData = () =>{
         console.log("get detail")
         const opt = {
             method: "get",
+            withCredentials: true,
             url: `${BASE_URL}/event?id=${params.id}`
         }
     

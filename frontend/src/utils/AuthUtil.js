@@ -1,5 +1,5 @@
-export const isAuth = () => {
-    return localStorage.getItem('token');
+export const isAuth = (cookie) => {
+    return cookie['XSRF-TOKEN'];
 }
 
 export const setAuth = (token) => {

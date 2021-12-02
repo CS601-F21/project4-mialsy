@@ -1,14 +1,16 @@
 import React from 'react'; 
-import { Form, Button, Input, InputNumber } from 'antd';
+import { Form, Button, Input, InputNumber, DatePicker} from 'antd';
 import axios from 'axios';
 import { BASE_URL } from '../constants/Constant';
 
+const { RangePicker } = DatePicker;
+
 const layout = {
     labelCol: {
-      span: 5,
+      span: 6,
     },
     wrapperCol: {
-      span: 10,
+      span: 21,
     },
 };
 
@@ -30,6 +32,7 @@ const EventModalContent = (props) => {
     
     const onFinish = (values) => {
         const body = values.event;
+        console.log(body);
 
         const opt = {
             method: "post",
@@ -84,6 +87,18 @@ const EventModalContent = (props) => {
             ]}
             >
             <InputNumber />
+            </Form.Item>
+
+            <Form.Item
+            name={['event', 'duration']}
+            label="Duration"
+            rules={
+                [{
+                    required: true,
+                    type: 'array'
+                }]
+            }>
+                <RangePicker showTime format="MM/DD/YYYY HH:mm:ss" />
             </Form.Item>
     
             <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>

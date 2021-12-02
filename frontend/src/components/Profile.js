@@ -3,10 +3,17 @@ import { UserOutlined, EditOutlined, SaveOutlined, CloseSquareOutlined } from '@
 import React, {useState} from 'react';
 import { isAuth } from '../utils/AuthUtil';
 import { Navigate, useLocation } from 'react-router';
+import { useCookies } from 'react-cookie';
 
 const { Paragraph } = Typography;
 
 const Profile = () => {
+    const [cookies, setCookie] = useCookies(['name']);
+
+    console.log(cookies['XSRF-TOKEN'])
+
+    console.log(document.cookie)
+
     const location = useLocation();
     const [githubUsername] = useState("default user");
     const [name, setName] = useState('name');
@@ -38,9 +45,10 @@ const Profile = () => {
             <CloseSquareOutlined key="cancel" onClick={handleCancel}/> 
         </Tooltip>];
 
-    if (!isAuth()) {
+    if (!isAuth(cookies)) {
         return <Navigate to="/login" state={{ from: location }} />
     }
+
     return (
         <Card title="Profile" 
             actions={editable ? editActions : saveAndCancelActions}

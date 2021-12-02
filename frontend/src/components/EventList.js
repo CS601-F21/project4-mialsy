@@ -1,4 +1,4 @@
-import { BackTop, Button, List, Modal } from 'antd';
+import { BackTop, Button, Divider, List, Modal } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -23,8 +23,11 @@ const EventList = () => {
         console.log("fetch");
         const opt = {
             method: "get",
+            withCredentials: true,
             url: `${BASE_URL}/events`
         }
+
+        console.log(opt)
     
         axios(opt)
             .then(res => {
@@ -35,6 +38,7 @@ const EventList = () => {
                 }
             })
             .catch(err => {
+                console.log("failed!")
                 console.log(err);
             });
     };
@@ -43,15 +47,19 @@ const EventList = () => {
 
     return (
         <>
-            <Button 
-                type={'primary'} 
-                shape={'round'}
-                icon={<PlusOutlined />}
-                onClick={() => setModalOpen(true) } 
-                style={{marginTop: 20, marginBottom: 20}}
-            >
-                Create new event
-            </Button>
+            <div style={{fontSize: 18, fontWeight: 'bold', paddingBottom: 15}}>
+                Want to create your own event?
+                <Button 
+                    type={'primary'} 
+                    shape={'round'}
+                    icon={<PlusOutlined />}
+                    onClick={() => setModalOpen(true) } 
+                    style={{marginLeft: 10, marginTop: 20, marginBottom: 20}}
+                >
+                    Add a new event
+                </Button>
+            </div>
+            <Divider> Events </Divider>
             <div>
                 <List
                     dataSource={events}
@@ -68,7 +76,7 @@ const EventList = () => {
                     )}
                 />
                 <BackTop>
-                    <UpCircleTwoTone style={{fontSize: 50}}/>
+                    <UpCircleTwoTone twoToneColor="#3E6294" style={{fontSize: 50}}/>
                 </BackTop>
             </div>
             <Modal 
