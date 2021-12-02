@@ -7,8 +7,11 @@ import { TransactionOutlined, UserOutlined, ShopOutlined } from '@ant-design/ico
 
 const SideMenu = () => (
     <div>
-        <div className="logo" />
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
+        <div style={{display: "flex"}}>
+            <div className="logo" />
+            <div className="logo-text" >Ticket App </div>
+        </div>
+        <Menu theme="dark" mode="inline">
             <Menu.Item key="1" icon={<UserOutlined />}>
                 <Link to='/profile'>Profile</Link>
             </Menu.Item>

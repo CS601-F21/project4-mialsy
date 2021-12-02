@@ -1,4 +1,4 @@
-import './App.css';
+import './App.less';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import EventDetail from './components/EventDetail';
 import EventList from './components/EventList';
