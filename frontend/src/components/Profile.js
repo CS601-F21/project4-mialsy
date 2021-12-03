@@ -66,7 +66,7 @@ const Profile = () => {
             actions={editable ? editActions : saveAndCancelActions}
             style={{ width: 600 }}>
 
-            <Avatar size="large" icon={<UserOutlined />} />
+            <Avatar size={65} src={avatar} icon={<UserOutlined />}/>
             <div style={{ margin: 10 }}>
                 <h4>
                     Name:

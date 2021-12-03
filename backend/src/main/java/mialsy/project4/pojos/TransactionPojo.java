@@ -2,40 +2,41 @@ package mialsy.project4.pojos;
 
 public class TransactionPojo {
 
-    private Long id;
+    private final Long id;
 
-    private Long userId;
+    private final Long userId;
 
-    private Long eventId;
+    private final Long eventId;
 
-    public TransactionPojo(Long id, Long userId, Long eventId) {
+    private final String eventName;
+
+    private final String eventDescription;
+
+    public TransactionPojo(Long id, Long userId, Long eventId, String eventName, String eventDescription) {
         this.id = id;
         this.userId = userId;
         this.eventId = eventId;
+        this.eventName = eventName;
+        this.eventDescription = eventDescription;
     }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Long getUserId() {
         return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     public Long getEventId() {
         return eventId;
     }
 
-    public void setEventId(Long eventId) {
-        this.eventId = eventId;
+    public String getEventName() {
+        return eventName;
     }
 
+    public String getEventDescription() {
+        return eventDescription;
+    }
 }

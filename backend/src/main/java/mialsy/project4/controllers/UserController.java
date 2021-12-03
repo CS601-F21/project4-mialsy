@@ -18,9 +18,9 @@ public class UserController {
     private UserRepository repository;
 
     @GetMapping("/user")
-    User getUserByEmail(@RequestParam(name = "email") String email) {
+    UserPojo getUserByEmail(@RequestParam(name = "email") String email) {
         return repository.findUserByEmail(email)
-                .orElseThrow(() -> ErrorUtil.getObjectNotFoundException(User.class.getName(), "email", email));
+                .orElseThrow(() -> ErrorUtil.getObjectNotFoundException(User.class.getName(), "email", email)).toPojo();
     }
 
     @GetMapping("/profile")

@@ -30,7 +30,7 @@ public class TransactionController {
     private EventRepository eventRepository;
 
     @GetMapping("/transactions")
-    Set<TransactionPojo> getTransactions(@AuthenticationPrincipal OAuth2User principal){
+    Iterable<TransactionPojo> getTransactions(@AuthenticationPrincipal OAuth2User principal){
         User user = AuthUtil.getLoginUser(userRepository, principal);
         return transactionRepository.findAllByUser(user)
                 .stream()
