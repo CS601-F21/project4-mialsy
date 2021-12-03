@@ -2,10 +2,10 @@ import { BackTop, Button, Divider, List, Modal } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { BASE_URL } from '../constants/Constant';
 import EventModalContent from './EventModalContent';
 import {UpCircleTwoTone, PlusOutlined} from '@ant-design/icons';
 import EventBuyTicketButton from './EventBuyTicketButton';
+import { getAxiosOptions } from '../utils/AxiosUtil';
 
 const EventList = () => {
     const [events, setEvents] = useState([]);
@@ -20,14 +20,8 @@ const EventList = () => {
 
     const fetchData = () => {
         setLoading(true);
-        console.log("fetch");
-        const opt = {
-            method: "get",
-            withCredentials: true,
-            url: `${BASE_URL}/events`
-        }
 
-        console.log(opt)
+        const opt = getAxiosOptions("get", "/events");
     
         axios(opt)
             .then(res => {
@@ -38,7 +32,6 @@ const EventList = () => {
                 }
             })
             .catch(err => {
-                console.log("failed!")
                 console.log(err);
             });
     };

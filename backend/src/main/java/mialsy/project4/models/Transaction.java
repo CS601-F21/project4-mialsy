@@ -61,6 +61,6 @@ public class Transaction {
     }
 
     public TransactionPojo toPojo() {
-        return new TransactionPojo(id, user.getGithubId(), event.getId());
+        return new TransactionPojo(id, user.getId(), event.getId());
     }
 }

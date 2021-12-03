@@ -4,6 +4,7 @@ import { BASE_URL } from '../constants/Constant';
 import axios from 'axios';
 import { Descriptions, Spin } from 'antd';
 import EventBuyTicketButton from './EventBuyTicketButton';
+import { getAxiosOptions } from '../utils/AxiosUtil';
 
 const getEventDescription = (e, setReload) => {
     return (
@@ -25,12 +26,7 @@ const EventDetail = () => {
     const [reload, setReload] = useState(false);
     
     const fetchData = () =>{
-        console.log("get detail")
-        const opt = {
-            method: "get",
-            withCredentials: true,
-            url: `${BASE_URL}/event?id=${params.id}`
-        }
+        const opt = getAxiosOptions("get", `/event?id=${params.id}`);
     
         axios(opt)
         .then(res => {

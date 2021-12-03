@@ -18,7 +18,6 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class TransactionController {
     @Autowired
@@ -74,7 +73,7 @@ public class TransactionController {
                     .orElseThrow(() -> ErrorUtil.getObjectNotFoundException(Transaction.class.getName(), transactionId));
 
         // check if the login user owns the transaction
-        if (!transaction.getUser().getGithubId().equals(AuthUtil.getLoginUserGithubId(principal))) {
+        if (!transaction.getUser().getEmail().equals(AuthUtil.getLoginUserEmail(principal))) {
             throw ErrorUtil.getNotAuthorizedException();
         }
 

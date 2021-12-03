@@ -1,75 +1,91 @@
 import { Card, Avatar, Input, Typography, Tooltip } from 'antd';
 import { UserOutlined, EditOutlined, SaveOutlined, CloseSquareOutlined } from '@ant-design/icons';
-import React, {useState} from 'react';
-import { isAuth } from '../utils/AuthUtil';
-import { Navigate, useLocation } from 'react-router';
-import { useCookies } from 'react-cookie';
+import React, { useEffect, useState } from 'react';
+import { BASE_URL } from '../constants/Constant';
+import axios from 'axios';
+import { getAxiosOptions } from '../utils/AxiosUtil';
 
 const { Paragraph } = Typography;
 
 const Profile = () => {
-    const [cookies, setCookie] = useCookies(['name']);
+    const [email, setEmail] = useState("");
+    const [username, setName] = useState("");
+    const [avatar, setAvatar] = useState("");
 
-    console.log(cookies['XSRF-TOKEN'])
-
-    console.log(document.cookie)
-
-    const location = useLocation();
-    const [githubUsername] = useState("default user");
-    const [name, setName] = useState('name');
     const [editable, setEditable] = useState(true);
+
+    // get user info
+    const fetchData = () => {
+        const opt = getAxiosOptions("get", "/profile");
+
+        axios(opt)
+            .then(res => {
+                if (res.status === 200) {
+                    setEmail(res.data.email);
+                    setName(res.data.name);
+                    setAvatar(res.data.picture);
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    };
+
     const toggleEditable = () => {
         setEditable(!editable);
     }
 
     const handleSave = () => {
         toggleEditable();
-        console.log(name);
     }
 
     const handleCancel = () => {
         toggleEditable();
-        console.log("save");
     }
+
+    useEffect(() => {
+        fetchData();
+      }, []);
 
     const editActions = [
         <Tooltip title="Edit">
-            <EditOutlined key="edit" onClick={toggleEditable}/>
+            <EditOutlined key="edit" onClick={toggleEditable} />
         </Tooltip>];
 
     const saveAndCancelActions = [
         <Tooltip title="Save">
             <SaveOutlined key="save" onClick={handleSave} />
-        </Tooltip>, 
+        </Tooltip>,
         <Tooltip title="Cancel">
-            <CloseSquareOutlined key="cancel" onClick={handleCancel}/> 
+            <CloseSquareOutlined key="cancel" onClick={handleCancel} />
         </Tooltip>];
 
-    if (!isAuth(cookies)) {
-        return <Navigate to="/login" state={{ from: location }} />
-    }
 
     return (
-        <Card title="Profile" 
+        <Card title="Profile"
             actions={editable ? editActions : saveAndCancelActions}
             style={{ width: 600 }}>
 
             <Avatar size="large" icon={<UserOutlined />} />
-            <div style={{margin: 10}}>
+            <div style={{ margin: 10 }}>
+                <h4>
+                    Name:
+                </h4>
                 <div>
-                    Name: 
-                </div>  
-                <div>
-                    {editable ? 
-                    <Paragraph style={{margin: 3}}>{name}</Paragraph> 
-                    : 
-                    <Input placeholder={name} allowClear={true} onChange={(e) => {setName(e.target.value)}}/>} 
+                    {editable ?
+                        <Paragraph style={{ margin: 3 }}>{username}</Paragraph>
+                        :
+                        <Input placeholder={"Input name"}
+                            allowClear={true}
+                            type="text"
+                            onChange={(e) => { setName(e.target.value) }}
+                        />}
                 </div>
+                <h4>
+                    Email:
+                </h4>
                 <div>
-                    Github username: 
-                </div>
-                <div>
-                    <Paragraph style={{margin: 3}}>{githubUsername}</Paragraph>
+                    <Paragraph style={{ margin: 3 }}>{email}</Paragraph>
                 </div>
             </div>
         </Card>

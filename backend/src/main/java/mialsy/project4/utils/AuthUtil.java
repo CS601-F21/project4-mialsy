@@ -6,13 +6,10 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 
 public class AuthUtil {
     public static User getLoginUser(UserRepository userRepository, OAuth2User principal) {
-        Integer intId = principal.getAttribute("id");
-        Long id = Long.valueOf(intId);
-        return userRepository.findByGithubId(id).orElseThrow(null);
+        return userRepository.findUserByEmail(principal.getAttribute("email")).orElse(null);
     }
 
-    public static Long getLoginUserGithubId(OAuth2User principal) {
-        Integer intId = principal.getAttribute("id");
-        return Long.valueOf(intId);
+    public static String getLoginUserEmail(OAuth2User principal) {
+        return principal.getAttribute("email");
     }
 }

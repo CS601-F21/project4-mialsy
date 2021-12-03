@@ -9,6 +9,11 @@ public class ErrorUtil {
         return new ResponseStatusException(HttpStatus.NOT_FOUND, msg);
     }
 
+    public static ResponseStatusException getObjectNotFoundException(String className, String fieldName, String fieldValue) {
+        String msg = "Cannot find %s with %s = %s".formatted(className, fieldName, fieldValue);
+        return new ResponseStatusException(HttpStatus.NOT_FOUND, msg);
+    }
+
     public static ResponseStatusException getNotAuthorizedException() {
         return new ResponseStatusException(HttpStatus.UNAUTHORIZED);
     }
