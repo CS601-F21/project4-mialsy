@@ -1,21 +1,27 @@
 import React, {useEffect, useState} from 'react';
 import { useParams } from 'react-router';
-import { BASE_URL } from '../constants/Constant';
 import axios from 'axios';
 import { Descriptions, Spin } from 'antd';
 import EventBuyTicketButton from './EventBuyTicketButton';
 import { getAxiosOptions } from '../utils/AxiosUtil';
+import { getFormattedTime, isPassedTime } from '../utils/DisplayUtil';
 
 const getEventDescription = (e, setReload) => {
     return (
         <div>
             <Descriptions title={e.name} column={1}> 
-                <Descriptions.Item label="Description">{e.description}</Descriptions.Item>
+            <Descriptions.Item label={<div>Time</div>}>{getFormattedTime(e.time)}</Descriptions.Item>
+                {e.description && <Descriptions.Item label="Description">{e.description}</Descriptions.Item>}
                 {e.count !== 0 ? 
                     <Descriptions.Item label="Count">{e.count}</Descriptions.Item> : 
                     <Descriptions.Item>Sold Out</Descriptions.Item>}   
             </Descriptions>
-            <EventBuyTicketButton count={e.count} id={e.id} setReload={setReload}/>
+            <EventBuyTicketButton 
+                count={e.count} 
+                id={e.id} 
+                isPassed={isPassedTime(e.time)} 
+                setReload={setReload}
+            />
         </div>
     );
 };

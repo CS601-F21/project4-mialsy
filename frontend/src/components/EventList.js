@@ -6,6 +6,15 @@ import EventModalContent from './EventModalContent';
 import {UpCircleTwoTone, PlusOutlined} from '@ant-design/icons';
 import EventBuyTicketButton from './EventBuyTicketButton';
 import { getAxiosOptions } from '../utils/AxiosUtil';
+import { getFormattedTime, isPassedTime } from '../utils/DisplayUtil';
+import {CalendarOutlined, PushpinOutlined} from '@ant-design/icons';
+
+const getDescription = (time, loc) => (
+    <div>
+        <div> <CalendarOutlined/> {time} </div>
+        <div> <PushpinOutlined /> location place holder</div>
+    </div>
+);
 
 const EventList = () => {
     const [events, setEvents] = useState([]);
@@ -59,12 +68,17 @@ const EventList = () => {
                     loading={loading}
                     renderItem={(item) => (
                         <List.Item
-                            actions={[<Link to={`/event/${item.id}`}>view detail</Link>,
-                                    <EventBuyTicketButton count={item.count} id={item.id} setReload={setReload}/>]}
-                        >
+                            actions={[<Link to={`/event/${item.id}`}>View Detail</Link>,
+                                <EventBuyTicketButton 
+                                    count={item.count} 
+                                    id={item.id} 
+                                    isPassed = {isPassedTime(item.time)} 
+                                    setReload={setReload}
+                                />]}
+                            >
                             <List.Item.Meta
                                 title={<p>{item.name}</p>}
-                                description={item.description} />
+                                description={getDescription(getFormattedTime((item.time)))} />
                         </List.Item>
                     )}
                 />

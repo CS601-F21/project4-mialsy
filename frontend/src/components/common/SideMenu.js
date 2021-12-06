@@ -3,6 +3,7 @@ import 'antd/dist/antd.css';
 import { Menu } from 'antd';
 import { Link, useLocation } from 'react-router-dom';
 import { TransactionOutlined, UserOutlined, ShopOutlined } from '@ant-design/icons';
+import LogoutButton from './LogoutButton';
 
 
 const SideMenu = (props) => {  
@@ -25,7 +26,14 @@ const SideMenu = (props) => {
                 </Menu.Item>
                 <Menu.Item key="/transactions" icon={<TransactionOutlined />}>
                     <Link to='/transactions'>Transactions</Link>
-                </Menu.Item>
+                </Menu.Item> 
+                <Menu.Item>
+                     {props.isAuth && 
+                        <LogoutButton 
+                            bpReached={props.bpReached}
+                            setAuth={props.setAuth}
+                        /> }   
+                </Menu.Item>         
             </Menu>
         </div>  
     );

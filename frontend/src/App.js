@@ -10,14 +10,18 @@ import SideMenu from './components/common/SideMenu';
 import Login from './components/Login';
 import { CookiesProvider, useCookies } from 'react-cookie';
 import { isAuth } from './utils/AuthUtil';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import NotFoundPage from './components/NotFoundPage';
 
 const { Content, Footer, Sider } = Layout;
 
 function App() {
-
   const [cookie] = useCookies('name');
   const [bpReached, setBpReached] = useState(false);
+  let [auth, setAuth] = useState(isAuth(cookie));
+  console.log(auth);
+
+  useEffect(() => {}, [auth]);
 
   return (
     <CookiesProvider>
@@ -35,19 +39,20 @@ function App() {
                 left: 0,
               }}            
             >
-              <SideMenu bpReached={bpReached} />
+              <SideMenu bpReached={bpReached} isAuth={auth} setAuth={setAuth} />
             </Sider>
 
             <Layout style={{ marginLeft: 200 }}>
               <Content style={{ margin: '24px 16px 0' }}>
                 <div className="site-layout-background" style={{ padding: 28, minHeight: "100vh"}}>
-                  { isAuth(cookie) ? 
+                  { auth ? 
                       <Routes>
                         <Route path = "/profile" element={<Profile />} />
                         <Route path = "/events" element={<EventList />} />
                         <Route path = "/event/:id" element={<EventDetail />} />
                         <Route path = "/transactions" element={<TransactionList />} />
                         <Route path = "/" element={<Home />} />
+                        <Route path = "*" element={<NotFoundPage />} />
                       </Routes> 
                       :
                       <Login />

@@ -1,7 +1,6 @@
-import { Card, Avatar, Input, Typography, Tooltip } from 'antd';
+import { Card, Avatar, Input, Typography, Tooltip, message } from 'antd';
 import { UserOutlined, EditOutlined, SaveOutlined, CloseSquareOutlined } from '@ant-design/icons';
 import React, { useEffect, useState } from 'react';
-import { BASE_URL } from '../constants/Constant';
 import axios from 'axios';
 import { getAxiosOptions } from '../utils/AxiosUtil';
 
@@ -36,7 +35,19 @@ const Profile = () => {
     }
 
     const handleSave = () => {
-        toggleEditable();
+        axios.put(`/profile?name=${username}`
+            ,
+            {}, 
+            {
+                withCredentials: true
+            })
+            .then((res) => {
+                message.success("Change name success!");
+            }).catch((err) => {
+                console.log(err);
+            }).finally(() => {
+                toggleEditable();
+            });
     }
 
     const handleCancel = () => {

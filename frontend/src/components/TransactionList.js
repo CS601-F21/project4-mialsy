@@ -1,9 +1,25 @@
 import React, {useEffect, useState} from 'react';
-import { BackTop, Button, List, message, Modal } from 'antd';
+import { BackTop, Button, List, message, Modal, Popover } from 'antd';
 import TransferModalContent from './TransactionModalContent';
 import { getAxiosOptions } from '../utils/AxiosUtil';
 import {UpCircleTwoTone} from '@ant-design/icons';
 import axios from 'axios';
+import { getFormattedTime, isPassedTime } from '../utils/DisplayUtil';
+
+const getListItem = (item) => {
+    
+    const content = <div>
+        <h4> Time: </h4> {getFormattedTime(item.eventTime)}
+        {item.eventDescription 
+            && 
+        <div style={{marginTop: 10}}><h4>Description:</h4> {item.eventDescription}</div>}
+        
+    </div>;
+    return (
+    <Popover placement="bottom" content={content} trigger="hover">
+        <h4>{item.eventName}</h4>
+    </Popover>);
+}
 
 const TransactionList = () => {
     const [transactionData, setData] = useState([]);
@@ -75,12 +91,11 @@ const TransactionList = () => {
                 renderItem={(item) => (
                     <List.Item
                         actions={[
-                        <Button type="primary" onClick={() => {handleOnClick(item)}}>
-                            Transfer
+                        <Button type="primary" disabled={isPassedTime(item.eventTime)} onClick={() => {handleOnClick(item)}}>
+                            {isPassedTime(item.eventTime) ? 'Past Event' : 'Transfer'}
                         </Button>]}
                     >
-                        <List.Item.Meta
-                            description={item.eventName}/>
+                        {getListItem(item)}
                     </List.Item>
                 )}
             />

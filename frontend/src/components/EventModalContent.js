@@ -2,8 +2,7 @@ import React from 'react';
 import { Form, Button, Input, InputNumber, DatePicker} from 'antd';
 import axios from 'axios';
 import { BASE_URL } from '../constants/Constant';
-
-const { RangePicker } = DatePicker;
+import moment from 'moment';
 
 const layout = {
     labelCol: {
@@ -31,16 +30,20 @@ const EventModalContent = (props) => {
     const [form] = Form.useForm();
     
     const onFinish = (values) => {
-        const body = values.event;
-        console.log(body);
+        const eventInfo = values.event;
+        console.log(eventInfo);
+        const body = {
+            name: eventInfo.name,
+            description: eventInfo.description,
+            count: eventInfo.count,
+            time: eventInfo.time.unix()
+        };
 
-        const opt = {
-            method: "post",
-            url: `${BASE_URL}/events`,
-            data: body
-        }
-
-        axios(opt)
+        axios.post(`${BASE_URL}/events`, 
+            body, 
+            {
+                withCredentials: true
+            })
           .then(function (response) {
               form.resetFields();
               props.setModalOpen(false);
@@ -90,15 +93,15 @@ const EventModalContent = (props) => {
             </Form.Item>
 
             <Form.Item
-            name={['event', 'duration']}
-            label="Duration"
+            name={['event', 'time']}
+            label="Time"
             rules={
                 [{
                     required: true,
-                    type: 'array'
+                    type: "object"
                 }]
             }>
-                <RangePicker showTime format="MM/DD/YYYY HH:mm:ss" />
+                <DatePicker showTime format="MM/DD/YYYY HH:mm:ss" />
             </Form.Item>
     
             <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>

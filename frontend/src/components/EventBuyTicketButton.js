@@ -22,10 +22,14 @@ const EventBuyTicketButton = (props) => {
 
     return (
         <Button type={'primary'} 
-            disabled={outOfStock} 
+            disabled={outOfStock || props.isPassed} 
             onClick={() => {handleOnClick(props.id) }}
         >
-            {outOfStock ? 'Sold out' : 'Buy ticket'}
+            {props.isPassed ? 'Past Event' : 
+            (
+                outOfStock ? 'Sold out' :
+                'Buy Ticket'
+            )}
         </Button>
     );
 };

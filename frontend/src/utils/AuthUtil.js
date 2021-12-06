@@ -1,5 +1,5 @@
 export const isAuth = (cookie) => {
-    return cookie['XSRF-TOKEN'];
+    return cookie["JSESSIONID"];
 }
 
 export const setAuth = (token) => {
