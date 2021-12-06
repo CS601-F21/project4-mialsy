@@ -2,19 +2,19 @@ package mialsy.project4.pojos;
 
 public class UserPojo {
 
-    private Long id;
+    private final Long id;
 
-    private Long githubId;
+    private final String name;
 
-    private String name;
+    private final String email;
 
-    private String githubUsername;
+    private final String picture;
 
-    public UserPojo(Long id, Long githubId, String name, String githubUsername) {
+    public UserPojo(Long id, String name, String email, String picture) {
         this.id = id;
-        this.githubId = githubId;
         this.name = name;
-        this.githubUsername = githubUsername;
+        this.email = email;
+        this.picture = picture;
     }
 
     public Long getId() {
@@ -25,11 +25,11 @@ public class UserPojo {
         return name;
     }
 
-    public String getGithubUsername() {
-        return githubUsername;
+    public String getEmail() {
+        return email;
     }
 
-    public Long getGithubId() {
-        return githubId;
+    public String getPicture() {
+        return picture;
     }
 }

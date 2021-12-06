@@ -1,16 +1,15 @@
 package mialsy.project4.controllers;
 
 import mialsy.project4.database.UserRepository;
+import mialsy.project4.models.Event;
 import mialsy.project4.models.User;
 import mialsy.project4.pojos.UserPojo;
 import mialsy.project4.utils.AuthUtil;
+import mialsy.project4.utils.ErrorUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Collections;
-import java.util.Map;
 
 @RestController
 public class UserController {
@@ -19,20 +18,20 @@ public class UserController {
     private UserRepository repository;
 
     @GetMapping("/user")
-    Map<String, Object> getUser(@AuthenticationPrincipal OAuth2User principal) {
-        return Collections.singletonMap("name", principal.getAttribute("name"));
+    UserPojo getUserByEmail(@RequestParam(name = "email") String email) {
+        return repository.findUserByEmail(email)
+                .orElseThrow(() -> ErrorUtil.getObjectNotFoundException(User.class.getName(), "email", email)).toPojo();
     }
 
     @GetMapping("/profile")
     UserPojo getProfile(@AuthenticationPrincipal OAuth2User principal) {
-        Integer intId = principal.getAttribute("id");
-        Long githubId = Long.valueOf(intId);
-        String username = principal.getAttribute("login");
         String name = principal.getAttribute("name");
+        String email = principal.getAttribute("email");
+        String picture = principal.getAttribute("picture");
 
         User user = AuthUtil.getLoginUser(repository, principal);
         if (user == null) {
-            return upsertUser(githubId, username, name);
+            return upsertUser(email, name, picture );
         } else {
             return user.toPojo();
         }
@@ -41,17 +40,16 @@ public class UserController {
     @RequestMapping(path = "/profile", method = RequestMethod.PUT)
     UserPojo updateUserName(@AuthenticationPrincipal OAuth2User principal,
                         @RequestParam(name = "name") String name) {
-        Integer intId = principal.getAttribute("id");
-        Long githubId = Long.valueOf(intId);
-        String username = principal.getAttribute("login");
-        return upsertUser(githubId, username, name);
+        String email = principal.getAttribute("email");
+        String picture = principal.getAttribute("picture");
+        return upsertUser(email, name, picture);
     }
 
-    private UserPojo upsertUser(Long githubId, String githubUsername, String name) {
-        User user = repository.findByGithubId(githubId).orElse(new User());
-        user.setGithubId(githubId);
-        user.setGithubUsername(githubUsername);
+    private UserPojo upsertUser(String email, String name, String picture) {
+        User user = repository.findUserByEmail(email).orElse(new User());
         user.setName(name);
+        user.setPicture(picture);
+        user.setEmail(email);
         repository.save(user);
         return user.toPojo();
     }

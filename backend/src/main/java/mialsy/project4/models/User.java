@@ -14,14 +14,14 @@ public class User {
     @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
-    @Column(name = "github_id", unique = true, nullable = false)
-    private Long githubId;
-
     @Column(name = "name")
     private String name;
 
-    @Column(name = "github_username", unique = true, nullable = false)
-    private String githubUsername;
+    @Column(name = "email", unique = true, nullable = false)
+    private String email;
+
+    @Column(name = "picture", unique = true, nullable = false)
+    private String picture;
 
 
     @OneToMany(cascade = CascadeType.ALL)
@@ -35,39 +35,43 @@ public class User {
         return id;
     }
 
-    public Long getGithubId() {
-        return githubId;
-    }
-
     public String getName() {
         return name;
     }
 
-    public String getGithubUsername() {
-        return githubUsername;
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPicture() {
+        return picture;
     }
 
     public Set<Transaction> getTransactions() {
         return transactions;
     }
 
-    public void setGithubId(Long githubId) {
-        this.githubId = githubId;
-    }
-
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setGithubUsername(String githubUsername) {
-        this.githubUsername = githubUsername;
     }
 
     public void setTransactions(Set<Transaction> transactions) {
         this.transactions = transactions;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
     public UserPojo toPojo() {
-        return new UserPojo(id, githubId, name, githubUsername);
+        return new UserPojo(id, name, email, picture);
     }
 }

@@ -15,7 +15,6 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -30,7 +29,7 @@ public class TransactionController {
     private EventRepository eventRepository;
 
     @GetMapping("/transactions")
-    Set<TransactionPojo> getTransactions(@AuthenticationPrincipal OAuth2User principal){
+    Iterable<TransactionPojo> getTransactions(@AuthenticationPrincipal OAuth2User principal){
         User user = AuthUtil.getLoginUser(userRepository, principal);
         return transactionRepository.findAllByUser(user)
                 .stream()
@@ -73,7 +72,7 @@ public class TransactionController {
                     .orElseThrow(() -> ErrorUtil.getObjectNotFoundException(Transaction.class.getName(), transactionId));
 
         // check if the login user owns the transaction
-        if (!transaction.getUser().getGithubId().equals(AuthUtil.getLoginUserGithubId(principal))) {
+        if (!transaction.getUser().getEmail().equals(AuthUtil.getLoginUserEmail(principal))) {
             throw ErrorUtil.getNotAuthorizedException();
         }
 
