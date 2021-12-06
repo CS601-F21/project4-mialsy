@@ -12,12 +12,15 @@ public class TransactionPojo {
 
     private final String eventDescription;
 
-    public TransactionPojo(Long id, Long userId, Long eventId, String eventName, String eventDescription) {
+    private final Long eventTime;
+
+    public TransactionPojo(Long id, Long userId, Long eventId, String eventName, String eventDescription, Long eventTime) {
         this.id = id;
         this.userId = userId;
         this.eventId = eventId;
         this.eventName = eventName;
         this.eventDescription = eventDescription;
+        this.eventTime = eventTime;
     }
 
     public Long getId() {
@@ -38,5 +41,9 @@ public class TransactionPojo {
 
     public String getEventDescription() {
         return eventDescription;
+    }
+
+    public Long getEventTime() {
+        return eventTime;
     }
 }

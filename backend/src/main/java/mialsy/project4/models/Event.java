@@ -21,6 +21,9 @@ public class Event {
     @Column(name = "count")
     private Integer count;
 
+    @Column(name = "time")
+    private Long time;
+
     public Long getId() {
         return id;
     }
@@ -37,6 +40,10 @@ public class Event {
         return count;
     }
 
+    public Long getTime() {
+        return time;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -51,6 +58,10 @@ public class Event {
 
     public void setCount(Integer count) {
         this.count = count;
+    }
+
+    public void setTime(Long time) {
+        this.time = time;
     }
 
     public void decrementCount() {
