@@ -61,6 +61,6 @@ public class Transaction {
     }
 
     public TransactionPojo toPojo() {
-        return new TransactionPojo(id, user.getId(), event.getId(), event.getName(), event.getDescription(), event.getTime());
+        return new TransactionPojo(id, user.getId(), event.getId(), event.getName(), event.getDescription(), event.getTime(), event.getLocation());
     }
 }

@@ -20,6 +20,7 @@ function App() {
   const [bpReached, setBpReached] = useState(false);
   let [auth, setAuth] = useState(isAuth(cookie));
   console.log(auth);
+  console.log(process.env.REACT_APP_BASE_URL)
 
   useEffect(() => {}, [auth]);
 

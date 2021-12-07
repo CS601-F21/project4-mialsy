@@ -10,6 +10,8 @@ const getListItem = (item) => {
     
     const content = <div>
         <h4> Time: </h4> {getFormattedTime(item.eventTime)}
+        <h4 style={{paddingTop: 5}}> Location: </h4> {item.eventLocation}
+
         {item.eventDescription 
             && 
         <div style={{marginTop: 10}}><h4>Description:</h4> {item.eventDescription}</div>}

@@ -1,4 +1,4 @@
-import { BackTop, Button, Divider, List, Modal } from 'antd';
+import { BackTop, Button, Divider, Image, List, Modal } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -12,7 +12,7 @@ import {CalendarOutlined, PushpinOutlined} from '@ant-design/icons';
 const getDescription = (time, loc) => (
     <div>
         <div> <CalendarOutlined/> {time} </div>
-        <div> <PushpinOutlined /> location place holder</div>
+        <div> <PushpinOutlined /> {loc}</div>
     </div>
 );
 
@@ -68,17 +68,20 @@ const EventList = () => {
                     loading={loading}
                     renderItem={(item) => (
                         <List.Item
-                            actions={[<Link to={`/event/${item.id}`}>View Detail</Link>,
+                            actions={[
+                                <Link to={`/event/${item.id}`}>View Detail</Link>,
                                 <EventBuyTicketButton 
                                     count={item.count} 
                                     id={item.id} 
                                     isPassed = {isPassedTime(item.time)} 
                                     setReload={setReload}
                                 />]}
-                            >
+                            
+                        >
                             <List.Item.Meta
                                 title={<p>{item.name}</p>}
-                                description={getDescription(getFormattedTime((item.time)))} />
+                                description={getDescription(getFormattedTime((item.time)), item.location)} />
+                            {item.picture && <Image src={item.picture} height={100}/>}
                         </List.Item>
                     )}
                 />

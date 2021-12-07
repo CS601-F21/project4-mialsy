@@ -24,6 +24,12 @@ public class Event {
     @Column(name = "time")
     private Long time;
 
+    @Column(name = "location")
+    private String location;
+
+    @Column(name = "picture")
+    private String picture;
+
     public Long getId() {
         return id;
     }
@@ -42,6 +48,14 @@ public class Event {
 
     public Long getTime() {
         return time;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public String getPicture() {
+        return picture;
     }
 
     public void setId(Long id) {
@@ -66,5 +80,13 @@ public class Event {
 
     public void decrementCount() {
         this.count--;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 }

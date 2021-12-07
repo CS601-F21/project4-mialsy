@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { useParams } from 'react-router';
 import axios from 'axios';
-import { Descriptions, Spin } from 'antd';
+import { Descriptions, Image, Spin } from 'antd';
 import EventBuyTicketButton from './EventBuyTicketButton';
 import { getAxiosOptions } from '../utils/AxiosUtil';
 import { getFormattedTime, isPassedTime } from '../utils/DisplayUtil';
@@ -16,6 +16,7 @@ const getEventDescription = (e, setReload) => {
                     <Descriptions.Item label="Count">{e.count}</Descriptions.Item> : 
                     <Descriptions.Item>Sold Out</Descriptions.Item>}   
             </Descriptions>
+            {e.picture && <Image src={e.picture}/>}
             <EventBuyTicketButton 
                 count={e.count} 
                 id={e.id} 
