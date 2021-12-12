@@ -16,6 +16,9 @@ npm install
 npm start 
 ```
 - Additional Features: Template (with react + antd); Images (stored on cloudinary, uploaded via cloudinary api).
+- Demo
+
+![demo](https://github.com/CS601-F21/project4-mialsy/blob/main/demo.gif)
 
 #### Final Code and Deployment Due - December 12, 2021 - Your solution must be complete by 12/12/21. Instructions for scheduling your final interactive grading session during finals week will be posted on Slack.
 
