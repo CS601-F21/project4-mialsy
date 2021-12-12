@@ -1,19 +1,21 @@
-import { Button, Typography } from 'antd';
-import * as React from 'react';
-import { BASE_URL } from '../constants/Constant';
+import { Button, Typography } from "antd";
+import * as React from "react";
+import { BASE_URL } from "../constants/Constant";
 
+/**
+ * Login component (displayed when users are not login)
+ * 
+ * @returns Login Component 
+ */
 const Login = () => {
-    return (
-        <div>
-            <Typography.Title level={3}>Welcome to Ticket App!</Typography.Title>
-            <Typography.Paragraph>Please sign in first.</Typography.Paragraph>
-            <Button 
-                type="primary" 
-                href={`${BASE_URL}/oauth2/authorization/google`}
-            >
-                Login with Google
-            </Button>
-        </div>)
-
-}
+  return (
+    <div>
+      <Typography.Title level={3}>Welcome to Ticket App!</Typography.Title>
+      <Typography.Paragraph>Please sign in first.</Typography.Paragraph>
+      <Button type="primary" href={`${BASE_URL}/oauth2/authorization/google`}>
+        Login with Google
+      </Button>
+    </div>
+  );
+};
 export default Login;
