@@ -28,7 +28,7 @@ For this project you will implement a ticket purchase web application (i.e., you
 You *must* complete all of the following required features for a total of 55 points.
 
 
-| Points   | Feature         | Description |
+| Points   | Feature         | Description | 
 | :-------: |:-------------:| :-----|
 | 5 | Login with ... and logout | Authenticate users to use your site through Slack or another third party (e.g., Google, github). Provide a signout option and maintain user state appropriately.|
 | 5 | User account | Allow a user to view and update personal user account information (e.g., name). | 
@@ -48,17 +48,17 @@ You may use additional database tables.
 
 Select up to 20 points of additional features. *No* extra credit will be awarded for implementing additional features.
 
-| Points   | Feature |  Description |
-| :-------: |:-------------:|  :-----|
-| 5 | Show *n* events per page | Provide pagination to allow a user to see some specific number of events per page and scroll to the next page. |
-| 5 | Discount/VIP Tickets | Provide the ability to specify some tickets as discounted (e.g., students) or more expensive (e.g., VIP). |
-| 5 | Modify/delete event | Allow a user to modify or delete an event *that s/he has created*.|
-| 10 | Images | Integrate images into your site, allow a user to upload images when creating an event and display when the event is viewed. |
-| 10 | Web API Integration |  Provide a feature that integrates another web API. For example, provide an option for a user to post events on Slack through their account (not just an anonymous bot!) or tweet out upcoming events. |
-| 10 | Templates |  Use [Thymeleaf](https://www.thymeleaf.org/) or another template engine to generate your HTML. |
-| 10 | Search | Allow a user to search events for particular phrases or other features. |
-| 10 | Hosted | Run on Amazon Web Services or another hosting site. |
-| 5 | Branding |  Brand your site with a logo, color scheme, etc. |
+| Points   | Feature |  Description | Implemented? |
+| :-------: |:-------------:|  :-----| :----| 
+| 5 | Show *n* events per page | Provide pagination to allow a user to see some specific number of events per page and scroll to the next page. | []|
+| 5 | Discount/VIP Tickets | Provide the ability to specify some tickets as discounted (e.g., students) or more expensive (e.g., VIP). | []|
+| 5 | Modify/delete event | Allow a user to modify or delete an event *that s/he has created*.| []|
+| 10 | Images | Integrate images into your site, allow a user to upload images when creating an event and display when the event is viewed. | [x] |
+| 10 | Web API Integration |  Provide a feature that integrates another web API. For example, provide an option for a user to post events on Slack through their account (not just an anonymous bot!) or tweet out upcoming events. | [] |
+| 10 | Templates |  Use [Thymeleaf](https://www.thymeleaf.org/) or another template engine to generate your HTML. | [x]|
+| 10 | Search | Allow a user to search events for particular phrases or other features. ||
+| 10 | Hosted | Run on Amazon Web Services or another hosting site. ||
+| 5 | Branding |  Brand your site with a logo, color scheme, etc. ||
 
 You may propose additional features via Slack or by coming to office hour. The instructor will tell you how many points you may earn by completing the features you propose.
 
