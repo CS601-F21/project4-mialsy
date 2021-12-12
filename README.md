@@ -1,6 +1,22 @@
 Project 4 - Ticket Purchase Web Application
 ===========================================
 
+### Run Application Note
+- Backend:
+Compiled file is in the backend folder, run compiled jar file with:
+```
+cd backend 
+java -jar  project4.jar 
+```
+- Frontend:
+Frontend was created with create-react-app, run frontend with:
+```
+cd frontend
+npm install
+npm start 
+```
+- Additional Features: Template (with react + antd); Images (stored on cloudinary, uploaded via cloudinary api).
+
 #### Final Code and Deployment Due - December 12, 2021 - Your solution must be complete by 12/12/21. Instructions for scheduling your final interactive grading session during finals week will be posted on Slack.
 
 #### Checkpoint Due - December 7, 2021 - All students will be required to demonstrate their progress on or before the last day of class - December 7, 2021. Students who fail to demonstrate reasonable progress before this checkpoint will not receive credit for the Project Checkpoint criterion.
