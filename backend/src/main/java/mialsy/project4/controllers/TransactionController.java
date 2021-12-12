@@ -17,17 +17,48 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/**
+ * The Transaction controller for CRUD operations on transaction
+ *
+ * @author Chuxi Wang
+ */
 @RestController
 public class TransactionController {
+
+    /**
+     * Autowired transaction repository instance
+     */
     @Autowired
     private TransactionRepository transactionRepository;
 
-    @Autowired
-    private UserRepository userRepository;
+    /**
+     * Autowired user repository instance
+     */
+    private final UserRepository userRepository;
 
-    @Autowired
-    private EventRepository eventRepository;
+    /**
+     * Autowired event repository instance
+     */
+    private final EventRepository eventRepository;
 
+    /**
+     * Constructor for transaction controller
+     *
+     * @param userRepository Autowired user repository instance
+     * @param eventRepository Autowired event repository instance
+     */
+    @Autowired
+    public TransactionController(UserRepository userRepository, EventRepository eventRepository) {
+        this.userRepository = userRepository;
+        this.eventRepository = eventRepository;
+    }
+
+    /**
+     * Get all transaction by current logged in user.
+     *
+     * @param principal the logged in user principal
+     * @return all transactions by current user
+     */
     @GetMapping("/transactions")
     Iterable<TransactionPojo> getTransactions(@AuthenticationPrincipal OAuth2User principal){
         User user = AuthUtil.getLoginUser(userRepository, principal);
@@ -38,6 +69,13 @@ public class TransactionController {
                 .collect(Collectors.toSet());
     }
 
+    /**
+     * Create new transaction
+     *
+     * @param eventId   the event id related to this transaction
+     * @param principal the logged in user principal
+     * @return the saved transaction
+     */
     @PostMapping("/transactions")
     TransactionPojo createTransaction(@RequestParam(name = "eventId") Long eventId,
                                   @AuthenticationPrincipal OAuth2User principal) {
@@ -60,6 +98,14 @@ public class TransactionController {
         return transaction.toPojo();
     }
 
+    /**
+     * Transfer a transaction to another user
+     *
+     * @param principal     the logged in user principal
+     * @param transactionId the transaction id
+     * @param toUserId      the id for user to transferred to
+     * @return the updated transaction pojo
+     */
     @RequestMapping(path = "/transaction", method = RequestMethod.PUT)
     TransactionPojo transferTransaction(@AuthenticationPrincipal OAuth2User principal,
                                         @RequestParam(name = "transactionId") Long transactionId,
